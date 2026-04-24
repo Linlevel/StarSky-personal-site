@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-5BB8W2X');</script>
+  <!-- End Google Tag Manager -->
+  <link rel="icon" type="image/png" href="assets/img/chengtailang.jpg"/>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>LinShuiping Of Personal Portfolio</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style_main.css" rel="stylesheet">
+
+  <!-- Three.js Library for Cosmic Background -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- Marked for Markdown Rendering -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-169007209-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-169007209-3');
+  </script>
+
+  <style>
+	  body {
+	    overflow-x: hidden;
+	  }
+    /* Cosmic Canvas & Noise - Same as before */
+    #cosmic-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      display: block;
+      background: #050505;
+    }
+    .noise-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.04;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+    
+    /* Mouse Trail Canvas - 拖尾流星特效层 */
+    #mouse-trail-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 5;
+    }
+	
+	.circle-img-wrapper {
+	  position: relative;
+	  width: 100%;
+	}
+	
+	.circle-img {
+	  width: 100%;
+	  aspect-ratio: 1 / 1;
+	  object-fit: cover;
+	  border-radius: 50%;
+	  display: block;
+	}
+	
+	.arc-canvas {
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  width: 100%;
+	  height: 100%;
+	  pointer-events: none;  /* 让鼠标穿透，不干扰点击图片 */
+	}
+	
+	.portfolio-wrap .overlay-title {
+	  position: absolute;
+	  bottom: 0;
+	  left: 0;
+	  right: 0;
+	  text-align: center;
+	  margin: 0;
+	  padding: 16px 20px;
+	  background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.3));
+	  color: white;
+	  font-size: 1.2rem;
+	  font-weight: 600;
+	  font-family: 'Segoe UI', Roboto, sans-serif;
+	  backdrop-filter: blur(2px);
+	  letter-spacing: 0.5px;
+	}
+	/* 小屏幕适配 */
+	@media (max-width: 640px) {
+	  .portfolio-wrap .overlay-title {
+	    font-size: 0.9rem;
+	    padding: 10px 12px;
+	  }
+	}
+  </style>
+</head>
+
+<body>
+  
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5BB8W2X"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  
+  <!-- Cosmic Canvas & Noise -->
+  <canvas id="cosmic-canvas"></canvas>
+  <div class="noise-overlay"></div>
+  
+  <!-- Mouse Trail Canvas for shooting star effect -->
+  <canvas id="mouse-trail-canvas"></canvas>
+
+  <!-- 导航栏 -->
+  <div class="header_">
+    <nav class="nav_">
+      <a href="space.html" class="logo_">
+        <img src="assets/img/Asstar.jpg" alt="Asstar" class="logo-img_" title="点击进入探索">
+        <span class="logo-text_">ASSTAR</span>
+      </a>
+      <ul class="nav-links_">
+        <li><a href="trending-project.html" class="nav-link_">前沿项目</a></li>
+        <li><a href="huggingface-papers.html" class="nav-link_">前沿论文</a></li>
+        <li><a href="focus.html" class="nav-link_">焦点新闻</a></li>
+        <li><a href="tools.html" class="nav-link_">提效工具</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header-tops">
+    <div class="container">
+      <h1><a href="index.html">Lin Shuiping</a></h1>
+      <h2 style="color:#fff">I'm <span class="typing" style="color:#12D640"></span></h2>
+      <nav class="nav-menu d-none d-lg-block">
+        <ul>
+          <li class="active"><a href="#header"> <span>Home</span></a></li>
+          <li><a href="#about"><span>About</span></a></li>
+          <li><a href="#education"> <span>Education</span></a></li>
+          <li><a href="#Blog"> <span>Blog</span></a></li>
+          <li><a href="#portfolio"> <span>Projects</span></a></li>
+          <li><a href="#skills"> <span>Skills</span></a></li>
+          <li><a href="https://drive.google.com/file/d/1pT-Nk6AxY9ZOWBizuDb4htA3IiUF_fSe/view?usp=sharing" target="_blank"> <span>Resume</span></a></li>
+        </ul>
+      </nav>
+      <div class="social-links">
+        <a href="https://qm.qq.com/q/NvSoUojJM6" target="_blank" class="qq"><i class="fab fa-qq"></i></a>
+        <a href="https://drive.google.com/file/d/1jMd-0ZgAScfd01AbXJ-nChAgoANC0jio/view?usp=drive_link" target="_blank" class="wechat"><i class="fab fa-weixin"></i></a>
+        <a href="https://www.github.com/Linlevel" target="_blank" class="github"><i class="bx bxl-github"></i></a>
+        <a href="mailto:linsplevel@gmail.com" target="_blank" class="google"><i class="bx bxl-google"></i></a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======= About Section ======= -->
+  <section id="about" class="about">
+    <div class="about-me container">
+      <div class="section-title">
+        <h2>About</h2>
+      </div>
+      <div class="row">
+		<div class="col-lg-4" data-aos="fade-right">
+		<div class="circle-img-wrapper">
+         <img src="assets/img/chengtailang.jpg" class="img-fluid circle-img" alt="圆形展示的图片">
+         <canvas id="gradientArcCanvas" class="arc-canvas"></canvas>
+		 </div>
+		 </div>
+        <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
+          <p>一名专注且充满热情的开发者，对人工智能抱有浓厚兴趣。
+		  通过系统学习核心概念，并努力灵活运用，逐渐对这领域产生了由衷的热爱。
+		  热衷于构建和运用算法，致力于解决现实世界中的行业难题。</p>
+          <div class="row">
+            <div class="col-lg-6">
+              <ul>
+                <li><i class="icofont-rounded-right"></i> <strong>location:</strong> 福建省漳州市</li>
+                <li><i class="icofont-rounded-right"></i> <strong>Birthday:</strong> 30 March 2000</li>
+                <li><i class="icofont-rounded-right"></i> <strong>Phone:</strong> +86 18876329704</li>
+              </ul>
+            </div>
+            <div class="col-lg-6">
+              <ul>
+                <li><i class="icofont-rounded-right"></i> <strong>Politcs status:</strong> 中共党员</li>
+                <li><i class="icofont-rounded-right"></i> <strong>education:</strong> 智能科学与技术学士</li>
+                <li><i class="icofont-rounded-right"></i> <strong>QQEmail:</strong> 1934135105@qq.com</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="interests container">
+      <div class="section-title">
+        <h2>Interests</h2>
+      </div>
+      <div class="row">
+        <div class="col-lg-3 col-md-4"><div class="icon-box"><i class="ri-global-line" style="color: #ffbb2c;"></i><h3>AI Development</h3></div></div>
+        <div class="col-lg-3 col-md-4 mt-4 mt-md-0"><div class="icon-box"><i class="ri-database-2-line" style="color: #5578ff;"></i><h3>Olympiad in Informatics</h3></div></div>
+        <div class="col-lg-3 col-md-4 mt-4 mt-md-0"><div class="icon-box"><i class="ri-bar-chart-box-line" style="color: #e80368;"></i><h3>Machine Learning</h3></div></div>
+        <div class="col-lg-3 col-md-4 mt-4 mt-lg-0"><div class="icon-box"><i class="ri-code-s-slash-fill" style="color: #1c7d32;"></i><h3>Algorithms</h3></div></div>
+        <div class="col-lg-3 col-md-4 mt-4"><div class="icon-box"><i class="ri-english-input" style="color: #28a745;"></i><h3>Natural Language Processing</h3></div></div>
+        <div class="col-lg-3 col-md-4 mt-4"><div class="icon-box"><i class="ri-camera-3-line" style="color: #f1081f;"></i><h3>Visualization</h3></div></div>
+        <div class="col-lg-3 col-md-4 mt-4"><div class="icon-box"><i class="ri-file-list-3-line" style="color: #47aeff;"></i><h3>Computer Vision</h3></div></div>
+        <div class="col-lg-3 col-md-4 mt-4"><div class="icon-box"><i class="ri-image-line" style="color: #ffc107;"></i><h3>Image Processing</h3></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= Education Section ======= -->
+  <section id="education" class="services">
+    <div class="container">
+      <div class="section-title"><h2>Education</h2></div>
+      <div class="row">
+        <div class="col-lg-12" data-aos="fade-up" style="display: inline-block;">
+          <div class="col-md-4 mt-4 mt-md-0 icon-box" style="padding:0px 0px;padding-bottom: 5px;display: inline-block;">
+            <img src="assets/img/education/zknu.jpg" class="img-fluid" alt="">
+            <h6 style="text-align:left;color:#fff;padding: 5px 10px;">智能科学与技术学士</h6>
+			<p style="text-align:left;color:#fff;padding: 0px 10px;">担任2020级智能科学与技术1班副班长</p>
+			<p style="text-align:left;color:#fff;padding: 0px 10px;">2024届河南省优秀毕业生</p>
+            <p style="text-align:left;color:#fff;padding: 0px 10px;">GPA:3.22/4.0</p>
+			<h5 style="text-align:left;padding: 0px 10px;"><em>2020.9 - 2024.6</em></h5>
+<!--            <ul style="text-align:left;color:#fff;">
+				<li>机器学习</li>
+				<li>计算机视觉</li>
+				<li>Foundation Of Algorithms</li>
+			</ul> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="portfolio">
+      <div class="container">
+        <div class="section-title"><h2>Undergraduate Academic Achievements</h2></div>
+        <div class="row portfolio-container" style="position: relative; height: 437.75px; cursor: zoom-in;">
+           <div class="col-lg-4 col-md-6 portfolio-item filter-app" style="position: absolute; left: 0px; top: 0px;">
+               <img src="assets/img/certification/21guoli.jpg" class="img-fluid" alt="">
+           </div>
+           <div class="col-lg-4 col-md-6 portfolio-item filter-app" style="position: absolute; left: 0px; top: 0px;">
+               <img src="assets/img/certification/22guoli.jpg" class="img-fluid" alt="">
+           </div>
+           <div class="col-lg-4 col-md-6 portfolio-item filter-app" style="position: absolute; left: 0px; top: 0px;">
+               <img src="assets/img/certification/23guoli.jpg" class="img-fluid" alt="">
+           </div>
+		   <div class="col-lg-4 col-md-6 portfolio-item filter-app" style="position: absolute; left: 0px; top: 0px;">
+		       <img src="assets/img/certification/shengyouxiu.jpg" class="img-fluid" alt="">
+		   </div>
+		   <div class="col-lg-4 col-md-6 portfolio-item filter-app" style="position: absolute; left: 0px; top: 0px;">
+              <img src="assets/img/certification/21youshengjiang.jpg" class="img-fluid" alt="">
+          </div>
+         <div class="col-lg-4 col-md-6 portfolio-item filter-app" style="position: absolute; left: 0px; top: 0px;">
+             <img src="assets/img/certification/22youshengjiang.jpg" class="img-fluid" alt="">
+         </div>
+		  <div class="col-lg-4 col-md-6 portfolio-item filter-app" style="position: absolute; left: 0px; top: 0px;">
+		      <img src="assets/img/certification/23dianzi.jpg" class="img-fluid" alt="">
+		  </div>
+		  <div class="col-lg-4 col-md-6 portfolio-item filter-app" style="position: absolute; left: 0px; top: 0px;">
+		      <img src="assets/img/certification/xuenianchengji.jpg" class="img-fluid" alt="">
+		  </div>
+		  
+		  <!-- 全屏图片查看器结构 (复用) -->
+		  <div id="universalImageViewer" class="image-viewer">
+		      <div class="viewport" id="viewerViewport">
+		          <div class="image-wrapper" id="imageWrapper">
+		              <img class="viewer-img" id="viewerImg" alt="预览图片" src="">
+		          </div>
+		          <div class="loading-tip" id="loadingTip" style="display: none;">加载中...</div>
+		      </div>
+		      <div class="viewer-toolbar" id="viewerToolbar">
+		          <button id="resetViewBtn" title="重置视图 (适应屏幕)">⟳ 重置</button>
+		          <button id="closeViewerBtn" class="close-btn" title="关闭 (ESC)">✕ 关闭</button>
+		      </div>
+		  </div>
+		  
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Start Blog Section - 星系知识图谱 -->
+	<section id="Blog" class="contact">
+	  <div class="container">
+		<div class="section-title">
+		  <h2>Galaxy Knowledge Graph</h2>
+		</div>
+	  </div>
+	  <div id="galaxy-container">
+	    <canvas id="galaxyCanvas"></canvas>
+	  </div>
+	</section>
+
+  <!-- Start Project Section -->
+  <section id="portfolio" class="portfolio">
+    <div class="container">
+      <div class="section-title"><h2>Projects</h2></div>
+      <div class="row"><div class="col-lg-12 d-flex justify-content-center">
+<!-- 		<ul id="portfolio-flters">
+		  <li data-filter="*" class="filter-active">All</li>
+		  <li data-filter=".filter-app">Web-App</li>
+		  <li data-filter=".filter-project">Project</li>
+		</ul> -->
+		</div>
+	</div>
+      <div class="row portfolio-container">
+        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+			<div class="portfolio-wrap">
+			<center><h4 class="overlay-title">毕业设计：基于图神经网络的知识图谱嵌入方法研究</h4></center>
+			<img src="assets/img/project/twitteranalysis.jpg" class="img-fluid" alt="">
+			<div class="portfolio-info"><div class="portfolio-links">
+			<a href="projects/twitteranalysis.html" data-gall="portfolioDetailsGallery" data-vbtype="iframe" class="venobox" title="Project Details">
+			<i class="bx bx-info-circle"></i>
+			</a></div></div></div></div>
+        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+			<div class="portfolio-wrap">
+				<center><h4 class="overlay-title">StarSky个人星空风格网站</h4></center>
+				<img src="assets/img/project/iras.jpeg" class="img-fluid" alt="">
+			<div class="portfolio-info"><div class="portfolio-links">
+			<a href="projects/iras.html" data-gall="portfolioDetailsGallery" data-vbtype="iframe" class="venobox" title="Project Details">
+				<i class="bx bx-info-circle"></i>
+				</a></div></div></div></div>
+       </div>
+    </div>
+  </section>
+
+  <!-- Start Skills Section -->
+  <section id="skills" class="services">
+    <div class="container">
+      <div class="section-title"><h2>Skills</h2></div>
+      <div class="row">
+        <div class="col-lg-12" data-aos="fade-up">
+          <div class="col-md-12 mt-4 mt-md-0 icon-box" style="background:#fff">
+			  <h4 style="text-align:left;color:#09203a">Languages and Databases</h4>
+		  <p style="text-align:left;">
+		  <img src="https://www.vectorlogo.zone/logos/python/python-horizontal.svg" alt="vectorlogo.zone" height="50" width="150">
+		  <img src="https://www.vectorlogo.zone/logos/open-std_c/open-std_c-icon~alt.svg" alt="vectorlogo.zone">
+		  <img src="https://www.vectorlogo.zone/logos/isocpp/isocpp-icon.svg" alt="vectorlogo.zone" height="50" width="50">
+		  <img src="https://www.vectorlogo.zone/logos/w3_html5/w3_html5-ar21.svg" alt="vectorlogo.zone">
+		  <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/CSS3_logo_and_wordmark.svg" alt="upload.wikimedia.org" height="60" width="90">
+		  <img src="https://www.vectorlogo.zone/logos/neo4j/neo4j-ar21~bgwhite.svg" alt="vectorlogo.zone">
+		  <img src="https://www.vectorlogo.zone/logos/mongodb/mongodb-ar21~bgwhite.svg" alt="vectorlogo.zone">
+		  <img src="https://www.vectorlogo.zone/logos/mysql/mysql-horizontal.svg" alt="vectorlogo.zone" height="70" width="130">
+		  </p></div>
+          <div class="col-md-12 mt-4 mt-md-0 icon-box" style="background:#fff">
+			  <h4 style="text-align:left;color:#09203a">Frameworks</h4>
+			  <p style="text-align:left;">
+				  <img src="https://www.vectorlogo.zone/logos/palletsprojects_flask/palletsprojects_flask-ar21~v2.svg" alt="vectorlogo.zone">
+				  <img src="https://www.vectorlogo.zone/logos/tensorflow/tensorflow-ar21.svg" alt="vectorlogo.zone">
+				  <img src="https://www.vectorlogo.zone/logos/pytorch/pytorch-ar21.svg" alt="vectorlogo.zone">
+				  <img src="https://www.vectorlogo.zone/logos/opencv/opencv-ar21.svg" alt="vectorlogo.zone">
+				  </p></div>
+          <div class="col-md-12 mt-4 mt-md-0 icon-box" style="background:#fff"><h4 style="text-align:left;color:#09203a">Tools</h4>
+		  <p style="text-align:left;">
+			  <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-ar21.svg" alt="vectorlogo.zone">
+			  <img src="https://www.vectorlogo.zone/logos/google_cloud/google_cloud-ar21.svg" alt="vectorlogo.zone">
+			  <img src="https://www.vectorlogo.zone/logos/jupyter/jupyter-ar21.svg" alt="vectorlogo.zone">
+			  </p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+  <script src="assets/vendor/counterup/counterup.min.js"></script>
+  <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/venobox/venobox.min.js"></script>
+  <script src="assets/vendor/typed.js/typed.min.js"></script>
+  <script type="text/javascript">
+    var typed = new Typed('.typing',{ strings: ["Coder", "Developer", "AI Enthusiast"], loop: true, typeSpeed: 65, backSpeed: 65 });
+  </script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+  <!-- Cosmic Background Three.js Script -->
+  <script>
+    (function initCosmicBackground() {
+      const canvas = document.getElementById('cosmic-canvas');
+      if (!canvas) return;
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x050505);
+      scene.fog = new THREE.FogExp2(0x050505, 0.0008);
+      const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 2000);
+      camera.position.set(0, 2, 18);
+      camera.lookAt(0, 0, 0);
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: false });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(window.devicePixelRatio);
+      const starsCount = 2800;
+      const starsGeometry = new THREE.BufferGeometry();
+      const starsPositions = new Float32Array(starsCount * 3);
+      const starsColors = new Float32Array(starsCount * 3);
+      for (let i = 0; i < starsCount; i++) {
+        const radius = 25 + Math.random() * 45;
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.acos(2 * Math.random() - 1);
+        const x = radius * Math.sin(phi) * Math.cos(theta);
+        const y = radius * Math.sin(phi) * Math.sin(theta) * 0.6;
+        const z = radius * Math.cos(phi);
+        starsPositions[i*3] = x;
+        starsPositions[i*3+1] = y * 0.8;
+        starsPositions[i*3+2] = z;
+        const colorChoice = Math.random();
+        if (colorChoice < 0.7) { starsColors[i*3] = 0.8 + Math.random() * 0.2; starsColors[i*3+1] = 0.8 + Math.random() * 0.2; starsColors[i*3+2] = 1.0; }
+        else if (colorChoice < 0.9) { starsColors[i*3] = 1.0; starsColors[i*3+1] = 0.6 + Math.random() * 0.3; starsColors[i*3+2] = 0.4 + Math.random() * 0.3; }
+        else { starsColors[i*3] = 0.7 + Math.random() * 0.3; starsColors[i*3+1] = 0.5 + Math.random() * 0.4; starsColors[i*3+2] = 0.9 + Math.random() * 0.1; }
+      }
+      starsGeometry.setAttribute('position', new THREE.BufferAttribute(starsPositions, 3));
+      starsGeometry.setAttribute('color', new THREE.BufferAttribute(starsColors, 3));
+      const starMaterial = new THREE.PointsMaterial({ size: 0.18, vertexColors: true, transparent: true, opacity: 0.85, blending: THREE.AdditiveBlending });
+      const starField = new THREE.Points(starsGeometry, starMaterial);
+      scene.add(starField);
+      const distantCount = 1800;
+      const distantGeo = new THREE.BufferGeometry();
+      const distantPos = new Float32Array(distantCount * 3);
+      for (let i = 0; i < distantCount; i++) {
+        const rad = 70 + Math.random() * 50;
+        const theta2 = Math.random() * Math.PI * 2;
+        const phi2 = Math.acos(2 * Math.random() - 1);
+        distantPos[i*3] = rad * Math.sin(phi2) * Math.cos(theta2);
+        distantPos[i*3+1] = rad * Math.sin(phi2) * Math.sin(theta2) * 0.5;
+        distantPos[i*3+2] = rad * Math.cos(phi2);
+      }
+      distantGeo.setAttribute('position', new THREE.BufferAttribute(distantPos, 3));
+      const distantStars = new THREE.Points(distantGeo, new THREE.PointsMaterial({ color: 0x88aaff, size: 0.08, transparent: true, opacity: 0.5, blending: THREE.AdditiveBlending }));
+      scene.add(distantStars);
+      const nebulaCount = 800;
+      const nebulaGeo = new THREE.BufferGeometry();
+      const nebulaPos = new Float32Array(nebulaCount * 3);
+      for (let i = 0; i < nebulaCount; i++) {
+        const r = 15 + Math.random() * 35;
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.acos(2 * Math.random() - 1);
+        nebulaPos[i*3] = r * Math.sin(phi) * Math.cos(theta);
+        nebulaPos[i*3+1] = r * Math.sin(phi) * Math.sin(theta) * 0.4;
+        nebulaPos[i*3+2] = r * Math.cos(phi);
+      }
+      nebulaGeo.setAttribute('position', new THREE.BufferAttribute(nebulaPos, 3));
+      const nebulaMat = new THREE.PointsMaterial({ color: 0x88aaff, size: 0.25, transparent: true, opacity: 0.2, blending: THREE.AdditiveBlending });
+      const nebulaCloud = new THREE.Points(nebulaGeo, nebulaMat);
+      scene.add(nebulaCloud);
+      const coreGlowGeometry = new THREE.SphereGeometry(1.2, 16, 16);
+      const coreGlowMaterial = new THREE.MeshBasicMaterial({ color: 0x88aaff, transparent: true, opacity: 0.15, blending: THREE.AdditiveBlending });
+      const coreGlow = new THREE.Mesh(coreGlowGeometry, coreGlowMaterial);
+      scene.add(coreGlow);
+      const ringParticleCount = 600;
+      const ringGeo = new THREE.BufferGeometry();
+      const ringPositions = new Float32Array(ringParticleCount * 3);
+      for (let i = 0; i < ringParticleCount; i++) {
+        const angle = (i / ringParticleCount) * Math.PI * 2;
+        const radiusRing = 6 + Math.sin(i * 0.03) * 1.2;
+        const xRing = Math.cos(angle) * radiusRing;
+        const zRing = Math.sin(angle) * radiusRing;
+        const yRing = Math.sin(angle * 3) * 1.2;
+        ringPositions[i*3] = xRing; ringPositions[i*3+1] = yRing; ringPositions[i*3+2] = zRing;
+      }
+      ringGeo.setAttribute('position', new THREE.BufferAttribute(ringPositions, 3));
+      const ringPoints = new THREE.Points(ringGeo, new THREE.PointsMaterial({ color: 0xccddff, size: 0.1, transparent: true, blending: THREE.AdditiveBlending }));
+      scene.add(ringPoints);
+      let mouseX = 0, mouseY = 0, targetRotationX = 0, targetRotationY = 0, currentRotationX = 0, currentRotationY = 0;
+      document.addEventListener('mousemove', (event) => { mouseX = (event.clientX / window.innerWidth) * 2 - 1; mouseY = (event.clientY / window.innerHeight) * 2 - 1; targetRotationY = mouseX * 0.3; targetRotationX = mouseY * 0.2; });
+      let time = 0;
+      function animateCosmic() { requestAnimationFrame(animateCosmic); time += 0.002; currentRotationX += (targetRotationX - currentRotationX) * 0.05; currentRotationY += (targetRotationY - currentRotationY) * 0.05; starField.rotation.y = currentRotationY * 0.8 + time * 0.05; starField.rotation.x = currentRotationX * 0.6; starField.rotation.z = currentRotationX * 0.2; distantStars.rotation.y = currentRotationY * 0.4 - time * 0.02; distantStars.rotation.x = currentRotationX * 0.3; nebulaCloud.rotation.y = currentRotationY * 0.5 + time * 0.03; nebulaCloud.rotation.x = currentRotationX * 0.4; ringPoints.rotation.y = time * 0.2; ringPoints.rotation.x = Math.sin(time * 0.5) * 0.1; coreGlow.rotation.y += 0.005; camera.position.x += (mouseX * 0.5 - camera.position.x) * 0.05; camera.position.y += (-mouseY * 0.3 - camera.position.y) * 0.05; camera.lookAt(0, 0, 0); renderer.render(scene, camera); }
+      animateCosmic();
+      window.addEventListener('resize', () => { camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); });
+    })();
+  </script>
+
+  <!-- Mouse Trail Shooting Star Effect -->
+  <script>
+    (function() {
+      const canvas = document.getElementById('mouse-trail-canvas');
+      if (!canvas) return;
+      let ctx = canvas.getContext('2d');
+      let particles = [];
+      let lastX = 0, lastY = 0;
+      let lastTimestamp = 0;
+      let maxParticles = 180;
+      let width, height;
+      function resizeCanvas() { width = window.innerWidth; height = window.innerHeight; canvas.width = width; canvas.height = height; }
+      window.addEventListener('resize', resizeCanvas);
+      resizeCanvas();
+      class TrailParticle { constructor(x, y, vx, vy, size, color, life) { this.x = x; this.y = y; this.vx = vx || (Math.random() - 0.5) * 1.2; this.vy = vy || (Math.random() - 0.5) * 1.2 - 0.8; this.size = size || 5 + Math.random() * 6; this.initialSize = this.size; this.color = color || `hsl(${180 + Math.random() * 40}, 100%, 65%)`; this.life = life || 1.0; this.decay = 0.02 + Math.random() * 0.03; } update() { this.x += this.vx; this.y += this.vy; this.life -= this.decay; this.size = this.initialSize * this.life; return this.life > 0; } draw(ctx) { ctx.save(); ctx.globalAlpha = this.life * 0.8; ctx.beginPath(); const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size * 0.8); gradient.addColorStop(0, `rgba(255, 255, 255, 0.9)`); gradient.addColorStop(0.4, `rgba(255, 255, 255, 0.7)`); gradient.addColorStop(1, `rgba(80, 150, 255, 0)`); ctx.fillStyle = gradient; ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); ctx.beginPath(); ctx.arc(this.x, this.y, this.size * 0.3, 0, Math.PI * 2); ctx.fillStyle = `rgba(255, 255, 255, ${this.life * 0.9})`; ctx.fill(); ctx.restore(); } }
+      function addParticle(x, y, velocityX, velocityY) { if (particles.length > maxParticles) particles.shift(); const vx = velocityX + (Math.random() - 0.5) * 1.5; const vy = velocityY + (Math.random() - 0.5) * 1.2 - 1.2; const hue = 180 + Math.random() * 50; const color = `hsl(${hue}, 100%, 65%)`; particles.push(new TrailParticle(x, y, vx, vy, 4 + Math.random() * 7, color, 0.9 + Math.random() * 0.3)); }
+      let mouseX = 0, mouseY = 0, prevX = 0, prevY = 0, velocityX = 0, velocityY = 0, lastMoveTime = 0;
+      document.addEventListener('mousemove', (e) => { const now = Date.now(); mouseX = e.clientX; mouseY = e.clientY; if (prevX !== 0 || prevY !== 0) { const dx = mouseX - prevX; const dy = mouseY - prevY; const dt = Math.min(50, now - lastMoveTime); if (dt > 0) { velocityX = dx / dt * 8; velocityY = dy / dt * 8; } const distance = Math.hypot(dx, dy); if (distance > 0.5) { const steps = Math.min(12, Math.floor(distance / 3) + 1); for (let i = 0; i <= steps; i++) { const t = i / steps; const ix = prevX + dx * t; const iy = prevY + dy * t; addParticle(ix, iy, velocityX * (0.5 + Math.random() * 0.6), velocityY * (0.5 + Math.random() * 0.6)); } } else { addParticle(mouseX, mouseY, velocityX * 0.5, velocityY * 0.5); } } else { addParticle(mouseX, mouseY, 0, 0); } prevX = mouseX; prevY = mouseY; lastMoveTime = now; });
+      function animateTrail() { requestAnimationFrame(animateTrail); ctx.clearRect(0, 0, width, height); for (let i = particles.length - 1; i >= 0; i--) { const alive = particles[i].update(); if (alive) particles[i].draw(ctx); else particles.splice(i, 1); } if (particles.length === 0 && (mouseX !== 0 || mouseY !== 0)) addParticle(mouseX, mouseY, 0, 0); }
+      animateTrail();
+    })();
+  </script>
+</body>
+</html>
