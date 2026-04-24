@@ -1,0 +1,288 @@
+{
+  "galaxies": [
+    {
+      "star": {
+        "name": "Python 入门与基础",
+        "md": "projects/python入门教程.md",
+        "radius": 64,
+        "color": "#FFD966",
+        "planets": [
+          {
+            "name": "包管理工具",
+            "md": "projects/Python3 pip .md",
+            "radius": 18,
+            "color": "#6C9FFF",
+            "satellites": []
+          },
+          {
+            "name": "日期与时间",
+            "md": "projects/Python3 日期和时间.md",
+            "radius": 18,
+            "color": "#6C9FFF",
+            "satellites": []
+          },
+          {
+            "name": "并发编程基础",
+            "md": "projects/Python3 多线程.md",
+            "radius": 18,
+            "color": "#6C9FFF",
+            "satellites": [
+              {
+                "name": "异步IO",
+                "md": "projects/Python asyncio 模块.md",
+                "radius": 10,
+                "color": "#B0BEC5"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "star": {
+        "name": "Python 标准库精讲",
+        "md": "projects/Python sys 模块.md",
+        "radius": 64,
+        "color": "#FF9F66",
+        "planets": [
+          {
+            "name": "数学与随机",
+            "md": "projects/Python math 模块.md",
+            "radius": 18,
+            "color": "#6C9FFF",
+            "satellites": [
+              {
+                "name": "随机数生成",
+                "md": "projects/Python random 模块.md",
+                "radius": 10,
+                "color": "#B0BEC5"
+              },
+              {
+                "name": "统计函数",
+                "md": "projects/Python statistics 模块.md",
+                "radius": 10,
+                "color": "#B0BEC5"
+              }
+            ]
+          },
+          {
+            "name": "文本处理与正则",
+            "md": "projects/Python re 模块.md",
+            "radius": 18,
+            "color": "#6C9FFF",
+            "satellites": [
+              {
+                "name": "CSV 文件处理",
+                "md": "projects/Python csv 模块.md",
+                "radius": 10,
+                "color": "#B0BEC5"
+              },
+              {
+                "name": "字符串IO",
+                "md": "projects/Python StringIO 模块.md",
+                "radius": 10,
+                "color": "#B0BEC5"
+              },
+              {
+                "name": "正则表达式详解",
+                "md": "projects/Python3 正则表达式.md",
+                "radius": 10,
+                "color": "#B0BEC5"
+              }
+            ]
+          },
+          {
+            "name": "日志与哈希",
+            "md": "projects/Python logging 模块.md",
+            "radius": 18,
+            "color": "#6C9FFF",
+            "satellites": [
+              {
+                "name": "哈希算法",
+                "md": "projects/Python hashlib 模块.md",
+                "radius": 10,
+                "color": "#B0BEC5"
+              }
+            ]
+          },
+          {
+            "name": "进程与队列",
+            "md": "projects/Python subprocess 模块.md",
+            "radius": 18,
+            "color": "#6C9FFF",
+            "satellites": [
+              {
+                "name": "队列模块",
+                "md": "projects/Python queue 模块.md",
+                "radius": 10,
+                "color": "#B0BEC5"
+              }
+            ]
+          },
+          {
+            "name": "序列化",
+            "md": "projects/Python Pickle 模块.md",
+            "radius": 18,
+            "color": "#6C9FFF",
+            "satellites": []
+          },
+          {
+            "name": "操作符工具",
+            "md": "projects/Python3 operator 模块.md",
+            "radius": 18,
+            "color": "#6C9FFF",
+            "satellites": []
+          }
+        ]
+      }
+    },
+    {
+      "star": {
+        "name": "Python 网络与Web",
+        "md": "projects/Python3 网络编程.md",
+        "radius": 64,
+        "color": "#FF6B6B",
+        "planets": [
+          {
+            "name": "HTTP 客户端",
+            "md": "projects/Python requests 模块.md",
+            "radius": 18,
+            "color": "#6C9FFF",
+            "satellites": [
+              {
+                "name": "urllib 底层库",
+                "md": "projects/Python urllib.md",
+                "radius": 10,
+                "color": "#B0BEC5"
+              }
+            ]
+          },
+          {
+            "name": "CGI 与服务器",
+            "md": "projects/Python CGI 编程.md",
+            "radius": 18,
+            "color": "#6C9FFF",
+            "satellites": [
+              {
+                "name": "uWSGI 部署",
+                "md": "projects/Python uWSGI 安装配置.md",
+                "radius": 10,
+                "color": "#B0BEC5"
+              }
+            ]
+          },
+          {
+            "name": "邮件发送",
+            "md": "projects/Python3 SMTP 发送邮件.md",
+            "radius": 18,
+            "color": "#6C9FFF",
+            "satellites": []
+          }
+        ]
+      }
+    },
+    {
+      "star": {
+        "name": "Python 数据持久化与交换",
+        "md": "projects/Python3 JSON 数据解析.md",
+        "radius": 64,
+        "color": "#66B5FF",
+        "planets": [
+          {
+            "name": "关系型数据库",
+            "md": "projects/Python MySQL 编程.md",
+            "radius": 18,
+            "color": "#6C9FFF",
+            "satellites": [
+              {
+                "name": "MySQL 连接器",
+                "md": "projects/Python3 MySQL 数据库连接.md",
+                "radius": 10,
+                "color": "#B0BEC5"
+              }
+            ]
+          },
+          {
+            "name": "NoSQL 数据库",
+            "md": "projects/Python MongoDB .md",
+            "radius": 18,
+            "color": "#6C9FFF",
+            "satellites": []
+          },
+          {
+            "name": "XML 处理",
+            "md": "projects/Python3 XML 解析.md",
+            "radius": 18,
+            "color": "#6C9FFF",
+            "satellites": []
+          }
+        ]
+      }
+    },
+    {
+      "star": {
+        "name": "Python 爬虫与自动化",
+        "md": "projects/Python 爬虫 - BeautifulSoup.md",
+        "radius": 64,
+        "color": "#A566FF",
+        "planets": [
+          {
+            "name": "爬虫框架",
+            "md": "projects/Python Scrapy 库.md",
+            "radius": 18,
+            "color": "#6C9FFF",
+            "satellites": []
+          },
+          {
+            "name": "浏览器自动化",
+            "md": "projects/Python selenium 库.md",
+            "radius": 18,
+            "color": "#6C9FFF",
+            "satellites": []
+          }
+        ]
+      }
+    },
+    {
+      "star": {
+        "name": "Python GUI 与可视化",
+        "md": "projects/Python PyQt.md",
+        "radius": 64,
+        "color": "#66FFB5",
+        "planets": [
+          {
+            "name": "数据可视化",
+            "md": "projects/Python pyecharts 模块.md",
+            "radius": 18,
+            "color": "#6C9FFF",
+            "satellites": []
+          }
+        ]
+      }
+    },
+    {
+      "star": {
+        "name": "Python 高级应用",
+        "md": "projects/Python OpenAI 库.md",
+        "radius": 64,
+        "color": "#FF66B5",
+        "planets": [
+          {
+            "name": "量化金融",
+            "md": "projects/Python 量化.md",
+            "radius": 18,
+            "color": "#6C9FFF",
+            "satellites": []
+          },
+          {
+            "name": "Markdown 生成",
+            "md": "projects/Python Markdown 生成 HTML .md",
+            "radius": 18,
+            "color": "#6C9FFF",
+            "satellites": []
+          }
+        ]
+      }
+    }
+  ]
+}
